@@ -5,7 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
   )
 
-func Test_solve(t *testing.T) {
+func Test_solve_problem_1(t *testing.T) {
 	tests := []struct{
 		input  int
 		output int
@@ -20,7 +20,7 @@ func Test_solve(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		got := solve(tt.input)
+		got := SolveProblem_1(tt.input)
 		assert.Equal(t, got, tt.output)
 	}
 }
