@@ -43,12 +43,12 @@ jobs:
           echo "Selected optional value: ${{ steps.set-values.outputs.optional-value }}"
           echo "Selected required value: ${{ steps.set-values.outputs.required-value }}"
   
-  with-optional-set:
-    needs: [setup]
-    uses: BecomingDitto/becomingditto.github.io/.github/workflows/ru-workflow.yml@master
-    with:
-      optional-value: ${{needs.setup.outputs.optional-value}}
-      required-value: ${{needs.setup.outputs.required-value}}
+#   with-optional-set:
+#     needs: [setup]
+#     uses: BecomingDitto/becomingditto.github.io/.github/workflows/ru-workflow.yml@master
+#     with:
+#       optional-value: ${{needs.setup.outputs.optional-value}}
+#       required-value: ${{needs.setup.outputs.required-value}}
   with-optional-unset:
     needs: [setup]
     uses: BecomingDitto/becomingditto.github.io/.github/workflows/ru-workflow.yml@master
