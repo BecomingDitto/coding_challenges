@@ -54,3 +54,6 @@ jobs:
     uses: BecomingDitto/becomingditto.github.io/.github/workflows/ru-workflow.yml@master
     with:
       required-value: ${{needs.setup.outputs.required-value}}
+      script: | 
+        echo "Found me!"
+        echo $(find . )
