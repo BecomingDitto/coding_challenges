@@ -1,0 +1,56 @@
+name: Reuseable workflow example
+on:
+  push:
+  # This is a basic workflow to help you get started with Actions
+  
+  workflow_dispatch: 
+    inputs:
+      optional-value:
+        description: 'Test Optional Value'
+        default: 'optional default value'
+        required: false
+      required-value: 
+        description: 'Test Required Value'
+        default: 'required default value'
+        required: true
+
+jobs:
+  setup:
+    name: "Set up workflow variables"
+    runs-on: ubuntu-latest
+    env:
+      optional-value: 'optional default value'
+      required-value: 'required default value'
+    outputs:
+      optional-value: ${{ steps.set-values.outputs.optional-value }}
+      required-value: ${{ steps.set-values.outputs.required-value }}
+
+    steps:
+      - id: set-values
+        name: "Set values"
+        # we set the values, so they are available on push
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "::set-output name=optional-value::${{ github.event.inputs.optional-value }}"
+            echo "::set-output name=required-value::${{ github.event.inputs.required-value }}"
+          else
+            echo "::set-output name=optional-value::${{ env.optional-value }}"
+            echo "::set-output name=required-value::${{ env.required-value }}"
+          fi
+
+      - name: Print selected environment
+        run: |
+          echo "Selected optional value: ${{ steps.set-values.outputs.optional-value }}"
+          echo "Selected required value: ${{ steps.set-values.outputs.required-value }}"
+  
+  with-optional-set:
+    needs: [setup]
+    uses: BecomingDitto/becomingditto.github.io/.github/workflows/ru-workflow.yml@master
+    with:
+      optional-value: ${{needs.setup.outputs.optional-value}}
+      required-value: ${{needs.setup.outputs.required-value}}
+  with-optional-unset:
+    needs: [setup]
+    uses: BecomingDitto/becomingditto.github.io/.github/workflows/ru-workflow.yml@master
+    with:
+      required-value: ${{needs.setup.outputs.required-value}}
