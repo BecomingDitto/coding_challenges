@@ -1,0 +1,9 @@
+[tool.poetry]
+name='Code Challenges'
+version='0.0.1'
+description='Solutions to code challenges'
+authors=["Dan Dubovik <dandubo@gmail.com> (@BecomingDitto on GitHub.com)"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pytest = "^7.2.0"
